@@ -19,6 +19,7 @@
 		E5F166221F14B3F7004ADC12 /* YSHY2048Obj.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1661E1F14B3F7004ADC12 /* YSHY2048Obj.swift */; };
 		E5F166231F14B3F7004ADC12 /* YSHY2048ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1661F1F14B3F7004ADC12 /* YSHY2048ViewController.swift */; };
 		E5F166261F14B45D004ADC12 /* YSHYConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F166251F14B45D004ADC12 /* YSHYConfig.swift */; };
+		E5F1662A1F14B6BE004ADC12 /* 2048.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F166291F14B6BE004ADC12 /* 2048.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		E5F1661E1F14B3F7004ADC12 /* YSHY2048Obj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YSHY2048Obj.swift; sourceTree = "<group>"; };
 		E5F1661F1F14B3F7004ADC12 /* YSHY2048ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YSHY2048ViewController.swift; sourceTree = "<group>"; };
 		E5F166251F14B45D004ADC12 /* YSHYConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YSHYConfig.swift; sourceTree = "<group>"; };
+		E5F166291F14B6BE004ADC12 /* 2048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2048.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		E5F165EC1F14B3C7004ADC12 /* YSHY2048-swift */ = {
 			isa = PBXGroup;
 			children = (
+				E5F166291F14B6BE004ADC12 /* 2048.png */,
 				E5F166241F14B45D004ADC12 /* Config */,
 				E5F1661B1F14B3F7004ADC12 /* 2048 */,
 				E5F165ED1F14B3C7004ADC12 /* AppDelegate.swift */,
@@ -265,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5F165F81F14B3C7004ADC12 /* LaunchScreen.storyboard in Resources */,
+				E5F1662A1F14B6BE004ADC12 /* 2048.png in Resources */,
 				E5F165F51F14B3C7004ADC12 /* Assets.xcassets in Resources */,
 				E5F165F31F14B3C7004ADC12 /* Main.storyboard in Resources */,
 			);
@@ -548,6 +552,7 @@
 				E5F166141F14B3C8004ADC12 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E5F166151F14B3C8004ADC12 /* Build configuration list for PBXNativeTarget "YSHY2048-swiftTests" */ = {
 			isa = XCConfigurationList;
@@ -556,6 +561,7 @@
 				E5F166171F14B3C8004ADC12 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E5F166181F14B3C8004ADC12 /* Build configuration list for PBXNativeTarget "YSHY2048-swiftUITests" */ = {
 			isa = XCConfigurationList;
@@ -564,6 +570,7 @@
 				E5F1661A1F14B3C8004ADC12 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
