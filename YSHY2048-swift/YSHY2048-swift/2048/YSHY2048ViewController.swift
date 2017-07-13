@@ -144,11 +144,24 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         lab.textColor = textColor
         lab.backgroundColor = backgroundColor
         lab.textAlignment = NSTextAlignment.center
-        if #available(iOS 8.2, *) {
-            lab.font = UIFont.systemFont(ofSize: font, weight: 10)
-        } else {
-            // Fallback on earlier versions
-            lab.font = UIFont.systemFont(ofSize: font)
+        
+        if CONTEXTWIDTH <= 320 {
+            if #available(iOS 8.2, *) {
+                lab.font = UIFont.systemFont(ofSize: font, weight: 5)
+            } else {
+                // Fallback on earlier versions
+                lab.font = UIFont.systemFont(ofSize: font)
+            }
+        }
+        else
+        {
+            if #available(iOS 8.2, *) {
+                lab.font = UIFont.systemFont(ofSize: font, weight: 10)
+            } else {
+                // Fallback on earlier versions
+                lab.font = UIFont.systemFont(ofSize: font)
+            }
+
         }
         return lab
         
@@ -157,16 +170,33 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
     func creatUI() -> Void {
         self.view.backgroundColor = UIColor.white
         
-        _ = self.getLab(text: "2048", frame: CGRect(x: 15, y: 25, width: 120, height: 120), textColor: UIColor.white, font: 28, backgroundColor: UIColor.init(colorLiteralRed: 238/255.0, green:220/255.0, blue:25/255.0,alpha:1))
+        let labWidth = (CONTEXTWIDTH - 90) / 3
+        let logoWidth = labWidth + 30 - 5
+        let btnHeight = (logoWidth - 55) / 2
+        let scoreHeight = btnHeight + 40
         
-        scoreLab = self.getLab(text: "分数\n\(score)", frame: CGRect(x: 150, y: 25, width: 90, height: 70), textColor: UIColor.white, font: 15, backgroundColor: UIColor.init(colorLiteralRed: 187/255.0, green:174/255.9, blue:162/255.0, alpha:1))
+        
+        print(logoWidth)
+        
+        // 2048 logo
+        let logolab = self.getLab(text: "2048", frame: CGRect(x: 15, y: 25, width: logoWidth, height: logoWidth), textColor: UIColor.white, font: 28, backgroundColor: UIColor.init(colorLiteralRed: 238/255.0, green:220/255.0, blue:25/255.0,alpha:1))
+        
+        scoreLab = self.getLab(text: "分数\n\(score)", frame: CGRect(x: logoWidth + 30, y: 25, width: labWidth, height: scoreHeight), textColor: UIColor.white, font: 15, backgroundColor: UIColor.init(colorLiteralRed: 187/255.0, green:174/255.9, blue:162/255.0, alpha:1))
         scoreLab?.numberOfLines = 2
         
-        bestScoreLab = self.getLab(text: "历史最高分数\n\(bestScroe)", frame: CGRect(x: 255, y: 25, width: 90, height: 70), textColor: UIColor.white, font: 13, backgroundColor: UIColor.init(colorLiteralRed: 187/255.0, green:174/255.9, blue:162/255.0, alpha:1))
+        var bestScorefont = 0.0
+         if CONTEXTWIDTH <= 320 {
+            bestScorefont = 12
+        }
+        else
+         {
+            bestScorefont = 13
+        }
+        bestScoreLab = self.getLab(text: "历史最高分数\n\(bestScroe)", frame: CGRect(x: (scoreLab?.frame.size.width)! + (scoreLab?.frame.origin.x)! + 15 , y: 25, width: labWidth, height: scoreHeight), textColor: UIColor.white, font: CGFloat(bestScorefont), backgroundColor: UIColor.init(colorLiteralRed: 187/255.0, green:174/255.9, blue:162/255.0, alpha:1))
         bestScoreLab?.numberOfLines = 2
         
         let menuBtn:UIButton = UIButton.init(type: UIButtonType.custom)
-        menuBtn.frame = CGRect(x: 150, y: 110, width: 90, height: 30)
+        menuBtn.frame = CGRect(x: (scoreLab?.frame.origin.x)!, y: 110, width: labWidth, height: btnHeight)
         menuBtn.layer.cornerRadius = 5
         menuBtn.layer.masksToBounds = true
         menuBtn.backgroundColor = UIColor.init(colorLiteralRed:238/255.0, green:113/255.0, blue:63/255.0, alpha:1)
@@ -176,7 +206,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         self.view.addSubview(menuBtn)
         
         let bestScrolBtn:UIButton = UIButton.init(type: UIButtonType.custom)
-        bestScrolBtn.frame = CGRect(x: 250, y: 110, width: 90, height: 30)
+        bestScrolBtn.frame = CGRect(x: (bestScoreLab?.frame.origin.x)!, y: 110, width: labWidth, height: btnHeight)
         bestScrolBtn.layer.cornerRadius = 5
         bestScrolBtn.layer.masksToBounds = true
         bestScrolBtn.backgroundColor = UIColor.init(colorLiteralRed:238/255.0, green:113/255.0, blue:63/255.0, alpha:1)
@@ -186,7 +216,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         self.view.addSubview(bestScrolBtn)
         
         
-        tipLab = self.getLab(text: "您的新挑战是获得\(targetScore)方块", frame: CGRect(x: 15, y: 160, width: self.view.frame.size.width - 30, height: 25), textColor: UIColor.white, font: 20, backgroundColor:UIColor.white)
+        tipLab = self.getLab(text: "您的新挑战是获得\(targetScore)方块", frame: CGRect(x: 15, y:logolab.frame.size.height + logolab.frame.origin.y + 15 , width: self.view.frame.size.width - 30, height: 25), textColor: UIColor.white, font: 20, backgroundColor:UIColor.white)
         tipLab?.textColor =  UIColor.init(colorLiteralRed:187/255.0, green:174/255.9, blue:162/255.0, alpha:1)
         tipLab?.numberOfLines = 2
         tipLab?.layer.masksToBounds = false
@@ -197,7 +227,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         layout.minimumLineSpacing = 10
         layout.sectionInset = UIEdgeInsetsMake(18, 10, 0, 10)
         
-        mainScrollView = UICollectionView.init(frame: CGRect(x: 10, y: 200, width: self.view.frame.size.width - 20, height: self.view.frame.size.width - 20), collectionViewLayout: layout)
+        mainScrollView = UICollectionView.init(frame: CGRect(x: 10, y: (tipLab?.frame.size.height)! + (tipLab?.frame.origin.y)! + 15 , width: self.view.frame.size.width - 20, height: self.view.frame.size.width - 20), collectionViewLayout: layout)
         mainScrollView?.bounces = false  //  关闭弹簧效果
         self.view.addSubview(mainScrollView!)
         mainScrollView?.isPagingEnabled = true

@@ -227,7 +227,7 @@
 				TargetAttributes = {
 					E5F165E91F14B3C7004ADC12 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = CV6BXNLMXG;
+						DevelopmentTeam = BX2VWKF59L;
 						ProvisioningStyle = Automatic;
 					};
 					E5F165FD1F14B3C8004ADC12 = {
@@ -455,7 +455,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CV6BXNLMXG;
+				DEVELOPMENT_TEAM = BX2VWKF59L;
 				INFOPLIST_FILE = "YSHY2048-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -469,7 +469,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CV6BXNLMXG;
+				DEVELOPMENT_TEAM = BX2VWKF59L;
 				INFOPLIST_FILE = "YSHY2048-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
