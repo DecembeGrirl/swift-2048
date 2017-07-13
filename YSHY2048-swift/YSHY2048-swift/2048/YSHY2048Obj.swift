@@ -12,7 +12,10 @@ class YSHY2048Obj: NSObject, NSCoding {
     var title:Int = 0
     var x:Int = 0
     var y:Int = 0
-    
+    var leftSwip:Bool = true
+    var rightSwip:Bool = true
+    var upSwip:Bool = true
+    var downSwip:Bool = true
     override init() {
         super.init()
     }
@@ -29,6 +32,9 @@ class YSHY2048Obj: NSObject, NSCoding {
         aCoder.encode(self.y, forKey: "y")
         aCoder.encode(self.title, forKey: "title")
     }
+    
+    
+    
     
     
 }

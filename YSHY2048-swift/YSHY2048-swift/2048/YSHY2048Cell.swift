@@ -24,7 +24,7 @@ class YSHY2048Cell: UICollectionViewCell {
     func creatUI() -> Void {
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
-        self.lab = UILabel.init(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
+        self.lab = UILabel.init(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.width))
         self.addSubview(self.lab!)
         self.lab?.textAlignment = NSTextAlignment.center
         self.lab?.font = UIFont.systemFont(ofSize: 30)

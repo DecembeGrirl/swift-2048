@@ -18,6 +18,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
     var tipLab:UILabel?
     var myArray:NSMutableArray = NSMutableArray.init(capacity: 16)
     var visiableArray:NSMutableArray = NSMutableArray.init(capacity: 16)
+    var occupyArray:NSMutableArray = NSMutableArray.init(capacity: 16)  // 已经被填充的数据源
     var top5List = [0,0,0,0,0]
     var isGameOver:Bool = false
     
@@ -36,11 +37,26 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
     
     func initData()  {
         for i in 0 ..< 4 {
+        
             for j in 0..<4 {
                 let obj:YSHY2048Obj = YSHY2048Obj.init()
                 obj.title = 0
                 obj.x = i
                 obj.y = j
+                if i == 0{
+                    obj.upSwip = false
+                }
+                else if i == 3
+                {
+                    obj.downSwip = false
+                }
+                
+                if j == 0 { // 不能向左滑动
+                    obj.leftSwip = false
+                }else if( j == i*4 + 3 ) //
+                {
+                    obj.rightSwip = false
+                }
                 myArray.add(obj)
             }
         }
@@ -209,22 +225,37 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         {
             if(direction == 1)
             {
-                self .swipRight()
+                if self.isCanRigthSwip() == true{
+                    self .swipRight()
+                    reShowView()
+                }
                 
             }else if(direction == 2)
             {
-                self.swipLeft()
+                if isCanLeftSwip() == true{
+                    self.swipLeft()
+                    reShowView()
+                }
             }else if(direction == 3)
             {
-                self.swipDown()
+                if isCaDownSwip() == true {
+                    self.swipDown()
+                    reShowView()
+                }
             }else if(direction == 4)
             {
-                self.swipUp()
+                if isCanUpSwip() == true {
+                    self.swipUp()
+                    reShowView()
+                }
             }
-            mainScrollView?.reloadData()
-            self.perform( #selector(nextShow), with: nil, afterDelay: 0.25)
+           
         }
-        
+    }
+    
+    func reShowView () -> () {
+        mainScrollView?.reloadData()
+        self.perform( #selector(nextShow), with: nil, afterDelay: 0.25)
     }
     
     func panDirection(translate:CGPoint) ->Int{
@@ -252,15 +283,95 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         return 0;
     }
     
-    func swipRight() {
+    // 判断 是否可以向右滑动
+    func isCanRigthSwip() -> Bool{
+        for k in (0 ..< 4) {
+            // 确定 i 的范围
+            for  i  in (k*4 ..< k*4 + 3).reversed() {
+                let obj1:YSHY2048Obj = myArray[i] as! YSHY2048Obj
+                let obj2:YSHY2048Obj = myArray[i+1] as! YSHY2048Obj
+               if isCanSwip(obj1: obj1, obj2: obj2) == true{
+                    print("------能够向右滑")
+                    return true
+                }
+            }
+        }
+         print("------不能够向右滑")
+        return false
+    }
+    // 判断 是否可以向左滑动
+    func isCanLeftSwip() -> Bool{
         for k in (0 ..< 4)
         {
             // 确定 i 的范围
-            for  i  in (k*4 ..< k*4 + 4).reversed() {
+            for  i  in (k*4+1 ..< k*4 + 4) {
                 
+                let obj1:YSHY2048Obj = myArray[i] as! YSHY2048Obj
+                let obj2:YSHY2048Obj = myArray[i-1] as! YSHY2048Obj
+                if isCanSwip(obj1: obj1, obj2: obj2) == true{
+                    print("------能够向左滑")
+                    return true
+                }
+            }
+        }
+        print("------bu能够向左滑")
+        return false
+    }
+    
+    // 判断 是否可以向上滑动
+    func isCanUpSwip() -> Bool{
+        var k:Int = 0
+        while k < 4 {
+            var i =  k + 4
+            while i <= 3*4+k {
+                let obj1:YSHY2048Obj = myArray[i] as! YSHY2048Obj
+                let obj2:YSHY2048Obj = myArray[i-4] as! YSHY2048Obj
+                if isCanSwip(obj1: obj1, obj2: obj2) == true{
+                    print("------能够向上滑")
+                    return true
+                }
+                i += 4
+            }
+            k += 1
+        }
+        print("------不能够向上滑")
+        return false
+    }
+    // 判断 是否可以向下滑动
+    func isCaDownSwip() -> Bool{
+        var k:Int = 0
+        while k < 4 {
+            var i = 2*4 + k
+          while  i >= k {
+                let obj1:YSHY2048Obj = myArray[i] as! YSHY2048Obj
+                let obj2:YSHY2048Obj = myArray[i+4] as! YSHY2048Obj
+              if isCanSwip(obj1: obj1, obj2: obj2) == true{
+                    print("------能够向下滑")
+                    return true
+                }
+                i -= 4
+            }
+            k += 1
+        }
+        print("------不能够向下滑")
+        return false
+    }
+    
+    func isCanSwip(obj1:YSHY2048Obj,obj2:YSHY2048Obj) -> Bool {
+        if (obj1.title != 0 && obj2.title == 0) || (obj1.title == obj2.title && obj1.title != 0 && obj2.title != 0 ){
+            return true
+        }
+        else{
+        return false
+        }
+    }
+    
+    func swipRight() {
+        for k in (0 ..< 4) {
+            // 确定 i 的范围
+            for  i  in (k*4 ..< k*4 + 4).reversed() {
                 for  j in (k*4 ..< i).reversed()
                 {
-                    //                    print("i = \(i)  j = \(j)")
                     let obj1:YSHY2048Obj = myArray[i] as! YSHY2048Obj
                     let obj2:YSHY2048Obj = myArray[j] as! YSHY2048Obj
                     let isBreak:Bool = self.exchangePosition(obj1: obj1, obj2: obj2)
@@ -280,7 +391,6 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
                 
                 for  j in (i+1 ..< k*4 + 4)
                 {
-                    //                    print("i = \(i)  j = \(j)")
                     let obj1:YSHY2048Obj = myArray[i] as! YSHY2048Obj
                     let obj2:YSHY2048Obj = myArray[j] as! YSHY2048Obj
                     let isBreak:Bool = self.exchangePosition(obj1: obj1, obj2: obj2)
@@ -299,7 +409,6 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
             while i <= 3*4+k {
                 var j = i + 4
                 while j <= 3*4+k {
-                    //                    print("i = \(i)  j = \(j)")
                     let obj1:YSHY2048Obj = myArray[i] as! YSHY2048Obj
                     let obj2:YSHY2048Obj = myArray[j] as! YSHY2048Obj
                     let isBreak:Bool = self.exchangePosition(obj1: obj1, obj2: obj2)
@@ -321,7 +430,6 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
             while i > 0 {
                 var j = i - 4
                 while j >= 0 {
-                    //                    print("i = \(i)  j = \(j)")
                     let obj1:YSHY2048Obj = myArray[i] as! YSHY2048Obj
                     let obj2:YSHY2048Obj = myArray[j] as! YSHY2048Obj
                     let isBreak:Bool = self.exchangePosition(obj1: obj1, obj2: obj2)
@@ -360,10 +468,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
             return true
         }
         return false
-        
     }
-    
-    
     
     //mark ---collectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -373,12 +478,13 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:YSHY2048Cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! YSHY2048Cell
         let obj:YSHY2048Obj = myArray[indexPath.row] as! YSHY2048Obj
-        //         print("------- \(indexPath.row)   --- title \(obj.title)")
         cell.configData(obj:obj)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 70, height: 70)
+        return CGSize(width: (CONTEXTWIDTH-100) / 4.0, height: (CONTEXTWIDTH - 100) / 4.0)
+//        print((CONTEXTWIDTH-30) / 4.0)
+//        return CGSize(width:70, height: 70)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
