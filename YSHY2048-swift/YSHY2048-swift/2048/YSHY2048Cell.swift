@@ -40,9 +40,7 @@ class YSHY2048Cell: UICollectionViewCell {
             self.lab?.text = "\(obj.title )"
             self.setLabBackgroundColor(obj: obj)
             self.setLabTextColor(obj: obj)
-            
         }
-       
     }
     func setLabTextColor(obj:YSHY2048Obj) {
         
@@ -108,6 +106,4 @@ class YSHY2048Cell: UICollectionViewCell {
         }
         self.lab?.backgroundColor =  color
     }
-    
-    
 }

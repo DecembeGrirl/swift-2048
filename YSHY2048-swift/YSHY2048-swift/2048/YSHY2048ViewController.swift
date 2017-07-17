@@ -35,7 +35,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
     }
     
-    func initData()  {
+   private  func initData()  {
         for i in 0 ..< 4 {
         
             for j in 0..<4 {
@@ -65,7 +65,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         self.nextShow()
     }
     
-    func nextShow() {
+     func nextShow() {
         if(visiableArray.count <= 0)
         {
             print("游戏结束")
@@ -84,7 +84,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         mainScrollView?.reloadItems(at: [IndexPath.init(row: tempIndex, section: 0)])
     }
     
-    func saveToCacha() {
+   private func saveToCacha() {
         let defualt: UserDefaults =  UserDefaults.standard
         defualt.set(score, forKey: "score")
         defualt.set(bestScroe, forKey: "bestScroe")
@@ -99,7 +99,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         defualt.set(visiableArrayArchiver, forKey: "visiableArray")
         defualt.synchronize()
     }
-    func getDataFromCacha()
+   private func getDataFromCacha()
     {
         let defualt: UserDefaults =  UserDefaults.standard
         bestScroe = defualt.integer(forKey: "bestScroe")
@@ -120,7 +120,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
     }
     
-    func reStart() {
+   private func reStart() {
         self.saveToCacha()
         score = 0;
         self.setLabText()
@@ -130,12 +130,12 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         self.initData()
     }
     
-    func setLabText() {
+   private func setLabText() {
         scoreLab?.text = "分数\n\(score)"
         bestScoreLab?.text = "历史最高分数\n\(bestScroe)"
     }
     
-    func getLab(text:String, frame:CGRect,textColor:UIColor,font:CGFloat,backgroundColor:UIColor ) -> UILabel {
+  private  func getLab(text:String, frame:CGRect,textColor:UIColor,font:CGFloat,backgroundColor:UIColor ) -> UILabel {
         let lab = UILabel.init(frame: frame)
         self.view.addSubview(lab)
         lab.text = text
@@ -167,7 +167,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         
     }
     
-    func creatUI() -> Void {
+   private func creatUI() -> Void {
         self.view.backgroundColor = UIColor.white
         
         let labWidth = (CONTEXTWIDTH - 90) / 3
@@ -236,12 +236,9 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         mainScrollView?.backgroundColor = UIColor.init(colorLiteralRed:187/255.0, green:174/255.9, blue:162/255.0, alpha:1)
         
         mainScrollView?.register(YSHY2048Cell.self, forCellWithReuseIdentifier: "cellID")
-        
-        
     }
     
-    func addGesture() {
-        
+   private func addGesture() {
         let pan:UIPanGestureRecognizer = UIPanGestureRecognizer.init(target: self, action:#selector(panAction(gesture:)) )
         pan.delegate = self
         self.view?.addGestureRecognizer(pan)
@@ -268,7 +265,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
                 }
             }else if(direction == 3)
             {
-                if isCaDownSwip() == true {
+                if isCanDownSwip() == true {
                     self.swipDown()
                     reShowView()
                 }
@@ -283,12 +280,12 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
     }
     
-    func reShowView () -> () {
+   private func reShowView () -> () {
         mainScrollView?.reloadData()
         self.perform( #selector(nextShow), with: nil, afterDelay: 0.25)
     }
     
-    func panDirection(translate:CGPoint) ->Int{
+   private func panDirection(translate:CGPoint) ->Int{
         let dx:CGFloat = translate.x;
         let dy:CGFloat = translate.y;
         
@@ -314,7 +311,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
     }
     
     // 判断 是否可以向右滑动
-    func isCanRigthSwip() -> Bool{
+    private func isCanRigthSwip() -> Bool{
         for k in (0 ..< 4) {
             // 确定 i 的范围
             for  i  in (k*4 ..< k*4 + 3).reversed() {
@@ -330,7 +327,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         return false
     }
     // 判断 是否可以向左滑动
-    func isCanLeftSwip() -> Bool{
+   private func isCanLeftSwip() -> Bool{
         for k in (0 ..< 4)
         {
             // 确定 i 的范围
@@ -349,7 +346,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
     }
     
     // 判断 是否可以向上滑动
-    func isCanUpSwip() -> Bool{
+   private func isCanUpSwip() -> Bool{
         var k:Int = 0
         while k < 4 {
             var i =  k + 4
@@ -368,7 +365,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         return false
     }
     // 判断 是否可以向下滑动
-    func isCaDownSwip() -> Bool{
+   private func isCanDownSwip() -> Bool{
         var k:Int = 0
         while k < 4 {
             var i = 2*4 + k
@@ -387,7 +384,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         return false
     }
     
-    func isCanSwip(obj1:YSHY2048Obj,obj2:YSHY2048Obj) -> Bool {
+   private func isCanSwip(obj1:YSHY2048Obj,obj2:YSHY2048Obj) -> Bool {
         if (obj1.title != 0 && obj2.title == 0) || (obj1.title == obj2.title && obj1.title != 0 && obj2.title != 0 ){
             return true
         }
@@ -396,7 +393,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
     }
     
-    func swipRight() {
+   private func swipRight() {
         for k in (0 ..< 4) {
             // 确定 i 的范围
             for  i  in (k*4 ..< k*4 + 4).reversed() {
@@ -413,7 +410,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
     }
     
-    func swipLeft() {
+   private func swipLeft() {
         for k in (0 ..< 4)
         {
             // 确定 i 的范围
@@ -432,7 +429,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
     }
     
-    func swipUp() {
+   private func swipUp() {
         var k:Int = 0
         while k < 4 {
             var i =  k
@@ -453,7 +450,7 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
     }
     
-    func swipDown() {
+   private func swipDown() {
         var k:Int = 0
         while k < 4 {
             var i = 3*4 + k
@@ -474,12 +471,12 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
     }
     
-    func exchangePosition(obj1:YSHY2048Obj,obj2:YSHY2048Obj) -> Bool {
+   private func exchangePosition(obj1:YSHY2048Obj,obj2:YSHY2048Obj) -> Bool {
         
         if obj1.title == 0  && obj2.title != 0{
+            visiableArray.remove(obj1)
             obj1.title = obj2.title
             obj2.title = 0
-            visiableArray.remove(obj1)
             visiableArray.add(obj2)
         }
         else if obj1.title == obj2.title && obj1.title != 0 && obj2.title != 0
@@ -497,10 +494,13 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
             }
             return true
         }
+        else if obj1.title != 0 && obj2.title != 0 && obj1.title != obj2.title{
+            return true
+        }
         return false
     }
     
-    //mark ---collectionViewDelegate
+    // mark ---collectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 16;
     }
@@ -516,30 +516,23 @@ class YSHY2048ViewController: UIViewController,UICollectionViewDataSource,UIColl
 //        print((CONTEXTWIDTH-30) / 4.0)
 //        return CGSize(width:70, height: 70)
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.saveToCacha()
     }
-    
     func gameStop()  {
         let alertView:UIAlertController = UIAlertController.init(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         alertView.addAction(UIAlertAction.init(title: "继续", style: UIAlertActionStyle.default, handler: { (UIAlertAction) -> Void in
-            
         }))
-        
         alertView.addAction(UIAlertAction.init(title: "重新开始", style: UIAlertActionStyle.default, handler: { (UIAlertAction) -> Void in
             self.reStart()
         }))
-        
         alertView.addAction(UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel, handler: { (UIAlertAction) -> Void in
-            
         }))
-        
         self.present(alertView, animated: true, completion: nil)
     }
     
-    func gameOver() -> Void {
+   private func gameOver() -> Void {
         
         let alertView:UIAlertController = UIAlertController.init(title: "游戏结束", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         

@@ -227,7 +227,7 @@
 				TargetAttributes = {
 					E5F165E91F14B3C7004ADC12 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = BX2VWKF59L;
+						DevelopmentTeam = YT3528CMQJ;
 						ProvisioningStyle = Automatic;
 					};
 					E5F165FD1F14B3C8004ADC12 = {
@@ -454,12 +454,14 @@
 		E5F166131F14B3C8004ADC12 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = BX2VWKF59L;
+				DEVELOPMENT_TEAM = YT3528CMQJ;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				INFOPLIST_FILE = "YSHY2048-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.YSHY.YSHY2048-swift";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.YSHY.YSHY2048-swift.a";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -468,12 +470,14 @@
 		E5F166141F14B3C8004ADC12 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = BX2VWKF59L;
+				DEVELOPMENT_TEAM = YT3528CMQJ;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				INFOPLIST_FILE = "YSHY2048-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.YSHY.YSHY2048-swift";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.YSHY.YSHY2048-swift.a";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
